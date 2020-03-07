@@ -80,6 +80,10 @@ class Chart extends Component {
     }
 
     LabelText = ({ bars }) => {
+        if (bars.length === 0) {
+            alert('Screen size too small, try loading desktop site!')
+            return <g></g>
+        }
         const barsAppended = this.getAllBars(bars)
         let labels = barsAppended.map(({ key, x, y, width, height }, index) => {
             return (
@@ -103,7 +107,7 @@ class Chart extends Component {
                 data={this.props.data}
                 keys={["size"]}
                 indexBy="repoName"
-                margin={{ top: 50, right: 100, bottom: 300, left: 200 }}
+                margin={{ top: 50, right: 150, bottom: 300, left: 200 }}
                 padding={0.1}
                 layout="horizontal"
                 layers={["grid", "axes", "bars", this.LabelText, "markers", "legends"]}
