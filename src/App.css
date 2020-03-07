@@ -16,7 +16,7 @@
   font-family: Lato,sans-serif;
   font-size: 1.5em;
   font-weight: 300;
-  margin: 0 20px;
+  margin-top: 35px;
   display: table-cell;
   padding: 10px 10px;
   transition: border-color .3s ease;
@@ -72,7 +72,8 @@ svg {
 }
 
 footer {
-  position: fixed;
+  position: relative;
+  margin-top: 20px;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -95,4 +96,23 @@ footer {
   to {
     transform: rotate(360deg);
   }
+}
+
+@media (max-width: 520px) {
+  .username-input {
+    font-size: 1em;
+  }
+
+  .desc {
+    font-size: 1.2em;
+  }
+
+  .site-title {
+    font-size: 4em;
+  }
+
+  .message {
+    font-size: 0.7em;
+  }
+
 }

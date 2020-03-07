@@ -10,14 +10,14 @@ const theme = {
         tickColor: "#eee",
         ticks: {
             text: {
-                fontSize: "18px",
+                fontSize: "1em",
                 fontFamily: "Lato, sans-serif",
                 fontWeight: "bold"
             }
         },
         legend: {
             text: {
-                fontSize: "20px",
+                fontSize: "1em",
                 fontFamily: "Lato, sans-serif",
                 fontWeight: "bold",
                 fill: '#165f77'
@@ -101,7 +101,7 @@ class Chart extends Component {
                 data={this.props.data}
                 keys={["size"]}
                 indexBy="repoName"
-                margin={{ top: 50, right: 300, bottom: 300, left: 300 }}
+                margin={{ top: 50, right: 100, bottom: 300, left: 200 }}
                 padding={0.1}
                 layout="horizontal"
                 layers={["grid", "axes", "bars", this.LabelText, "markers", "legends"]}
