@@ -5,20 +5,22 @@ import { ResponsiveBar } from '@nivo/bar'
 const yAxisDiff = 64
 const barHeight = 70
 
+const tickFont = "PT Sans, serif"
+
 const theme = {
     axis: {
         tickColor: "#eee",
         ticks: {
             text: {
                 fontSize: "1em",
-                fontFamily: "Lato, sans-serif",
+                fontFamily: tickFont,
                 fontWeight: "bold"
             }
         },
         legend: {
             text: {
                 fontSize: "1em",
-                fontFamily: "Lato, sans-serif",
+                fontFamily: tickFont,
                 fontWeight: "bold",
                 fill: '#165f77'
             }

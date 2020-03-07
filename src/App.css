@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: Lato, sans-serif;
+  font-family: "PT Sans", sans-serif;
   margin-top: 5em;
 }
 
@@ -13,7 +13,7 @@
   width: 50%;
   border: 8px solid #eee;
   border-radius: 4px;
-  font-family: Lato,sans-serif;
+  font-family: "PT Sans", sans-serif;
   font-size: 1.5em;
   font-weight: 300;
   margin-top: 35px;
@@ -31,7 +31,7 @@
 
 .site-title {
   font-weight: bold;
-  font-size: 5em;
+  font-size: 6em;
 }
 
 .desc {
@@ -54,7 +54,7 @@ svg {
 }
 
 .tick {
-  font-family: Lato, sans-serif;
+  font-family: "PT Sans", sans-serif;
   font-size: 1em;
   font-weight: bold;
 }
