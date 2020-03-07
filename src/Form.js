@@ -14,6 +14,7 @@ class Form extends Component {
             repos: null,
             loading: false,
             success:false,
+            sizeMessage:false,
             fetchPage: 1,
             fetchMore: true,
             invalidUser: false,
@@ -85,7 +86,8 @@ class Form extends Component {
     handleSubmit = (event) => {
         this.setState({
             loading: true,
-            invalidUser: false
+            invalidUser: false,
+            sizeMessage: false
         });
         event.preventDefault()
 
@@ -95,6 +97,7 @@ class Form extends Component {
             } else {
                 this.setState({
                     success: false,
+                    sizeMessage: false,
                     invalidUser: this.invalidUser,
                     unknownError: this.unknownError,
                     noRepos: this.noRepos
@@ -113,8 +116,8 @@ class Form extends Component {
         this.responseData.forEach(element => {
             repos.push(element.name)
             totalSize += element.size
-            let repoSize = element.size / 1024
-            repoSize =Math.round((repoSize + Number.EPSILON) * 100) / 100
+            // let repoSize = element.size / 1024
+            let repoSize = element.size
             chartData.push({
                 "repoName": element.name,
                 "size": repoSize,
@@ -129,6 +132,7 @@ class Form extends Component {
             chartData: chartData,
             repos: repos,
             success: true,
+            sizeMessage: true,
             invalidUser: false,
             unknownError: false,
             noRepos: false,
@@ -164,7 +168,7 @@ class Form extends Component {
                         Something went wrong!
                     </div> : null
                 }
-                {this.state.success ?
+                {this.state.sizeMessage ?
                     <div className="alert alert-info message">Total space occupied: {this.state.totalSize} GiB</div> : null
                 }
                 {this.state.success ?

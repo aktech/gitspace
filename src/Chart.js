@@ -62,8 +62,20 @@ class Chart extends Component {
             )
             lastBar = remainingElements[remainingElements.length - 1]
         })
+        remainingElements.reverse()
         return remainingElements.concat(bars)
+    }
 
+    formatSize = (size) => {
+        let humanReadableSize
+        if (size < 512) {
+            humanReadableSize = `${size} KiB`
+        } else if (size < 1024 * 1024) {
+            humanReadableSize = `${Math.round((size/1024 + Number.EPSILON) * 100) / 100} MiB`
+        } else {
+            humanReadableSize = `${Math.round((size/(1024*1024) + Number.EPSILON) * 100) / 100} GiB`
+        }
+        return humanReadableSize
     }
 
     LabelText = ({ bars }) => {
@@ -71,11 +83,11 @@ class Chart extends Component {
         console.log(barsAppended)
         let labels = barsAppended.map(({ key, x, y, width, height }, index) => {
             return (
-                <text textAnchor="middle" x={width+50} y={y + height/2.1} style={{
+                <text textAnchor="middle" className="foobarclass" x={width+50} y={y + height/2.1} style={{
                     "fontSize": "14px",
                     "fontFamily": "'Slabo 27px', serif"
                 }} key={index}>
-                    {barsAppended[index].data.value} MiB
+                    {this.formatSize(barsAppended[index].data.value)}
                 </text>
             )
         })
@@ -105,7 +117,7 @@ class Chart extends Component {
                     tickSize: 10,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: 'MiB',
+                    legend: 'KiB',
                     legendPosition: 'middle',
                     legendOffset: 70
                 }}
@@ -116,7 +128,7 @@ class Chart extends Component {
                 motionStiffness={90}
                 motionDamping={15}
                 theme={theme}
-                tooltipFormat={value => value + ' MiB'}
+                tooltipFormat={value => value + ' KiB'}
                 />
         </div>
         )
