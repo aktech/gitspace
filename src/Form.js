@@ -144,7 +144,7 @@ class Form extends Component {
     render() {
         return (
             <div>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className="username-input-form">
                 <input type="text" className="username-input" placeholder="Github Username" value={this.state.username}
                        onChange={this.handleUsernameChange}/>
             </form>
