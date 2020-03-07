@@ -21,7 +21,7 @@ npm start
 
 Checkout: http://localhost:3000/
 
-## Deploy to gihub pages
+## Deploy to github pages
 
 ```
 npm run deploy

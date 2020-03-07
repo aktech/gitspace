@@ -41,7 +41,6 @@ class Chart extends Component {
         const dataToFill = this.props.data.slice(0, remainingSize)
         let lastBar = bars[0]
         let remainingElements = []
-        console.log(dataToFill)
         dataToFill.reverse()
         dataToFill.forEach(element => {
             remainingElements.push({
@@ -80,7 +79,6 @@ class Chart extends Component {
 
     LabelText = ({ bars }) => {
         const barsAppended = this.getAllBars(bars)
-        console.log(barsAppended)
         let labels = barsAppended.map(({ key, x, y, width, height }, index) => {
             return (
                 <text textAnchor="middle" className="foobarclass" x={width+50} y={y + height/2.1} style={{
@@ -94,14 +92,13 @@ class Chart extends Component {
         return <g>{labels}</g>
     }
 
+
     render() {
 
         return (
         <div style={{height: Math.max(700, this.props.repos.length * barHeight)}} className="bar-chart">
             <ResponsiveBar
-                data={
-                    this.props.data
-                }
+                data={this.props.data}
                 keys={["size"]}
                 indexBy="repoName"
                 margin={{ top: 50, right: 300, bottom: 300, left: 300 }}
@@ -117,9 +114,10 @@ class Chart extends Component {
                     tickSize: 10,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: 'KiB',
+                    legend: 'MiB',
                     legendPosition: 'middle',
-                    legendOffset: 70
+                    legendOffset: 70,
+                    format: value => Math.round((value/1024 + Number.EPSILON))
                 }}
                 labelSkipWidth={12}
                 labelSkipHeight={12}
