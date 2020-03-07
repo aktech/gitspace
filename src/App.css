@@ -14,7 +14,7 @@
   border: 8px solid #eee;
   border-radius: 4px;
   font-family: Lato,sans-serif;
-  font-size: 25px;
+  font-size: 1.5em;
   font-weight: 300;
   margin: 0 20px;
   display: table-cell;
@@ -22,10 +22,11 @@
   transition: border-color .3s ease;
 }
 
+
 .message {
   width: 50%;
   margin: auto;
-  font-size: 20px;
+  font-size: 1.25em;
 }
 
 .site-title {
@@ -54,7 +55,7 @@ svg {
 
 .tick {
   font-family: Lato, sans-serif;
-  font-size: 15px;
+  font-size: 1em;
   font-weight: bold;
 }
 
