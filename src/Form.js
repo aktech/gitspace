@@ -87,6 +87,8 @@ class Form extends Component {
         this.setState({
             loading: true,
             invalidUser: false,
+            noRepos: false,
+            unknownError: false,
             sizeMessage: false
         });
         event.preventDefault()

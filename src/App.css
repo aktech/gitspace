@@ -22,6 +22,12 @@
   transition: border-color .3s ease;
 }
 
+.wrap-chart {
+  overflow-x: scroll;
+  display: block;
+  /*position: relative;*/
+  white-space: nowrap;
+}
 
 .message {
   width: 50%;
@@ -98,9 +104,10 @@ footer {
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
   .username-input {
     font-size: 1em;
+    width: 65%;
   }
 
   .desc {
@@ -113,6 +120,7 @@ footer {
 
   .message {
     font-size: 0.7em;
+    width: 65%;
   }
 
 }

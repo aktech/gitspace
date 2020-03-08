@@ -4,7 +4,7 @@ import { ResponsiveBar } from '@nivo/bar'
 // These two values must be close enough for the size label to be placed correctly
 const yAxisDiff = 64
 const barHeight = 70
-
+const smallScreenWidth = 600
 const tickFont = "PT Sans, serif"
 
 const theme = {
@@ -34,8 +34,24 @@ class Chart extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            labelPosition: null
+            labelPosition: null,
+            width: 0, height: 0
         }
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     getAllBars = (bars) => {
@@ -81,7 +97,6 @@ class Chart extends Component {
 
     LabelText = ({ bars }) => {
         if (bars.length === 0) {
-            alert('Screen size too small, try loading desktop site!')
             return <g></g>
         }
         const barsAppended = this.getAllBars(bars)
@@ -98,43 +113,64 @@ class Chart extends Component {
         return <g>{labels}</g>
     }
 
+    isOnSmallScreen = () => {
+        return this.state.width < smallScreenWidth
+    }
+
+    getChartMargin = () => {
+        const right = 120
+        const left = this.isOnSmallScreen() ? 100 : 200
+        return { top: 10, right: right, bottom: 200, left: left }
+    }
+
+    getChartDimension = () => {
+        return {
+            height: Math.max(700, this.props.repos.length * barHeight),
+            width: this.isOnSmallScreen() ? this.state.width + 200: this.state.width
+        }
+    }
 
     render() {
 
         return (
-        <div style={{height: Math.max(700, this.props.repos.length * barHeight)}} className="bar-chart">
-            <ResponsiveBar
-                data={this.props.data}
-                keys={["size"]}
-                indexBy="repoName"
-                margin={{ top: 50, right: 150, bottom: 300, left: 200 }}
-                padding={0.1}
-                layout="horizontal"
-                layers={["grid", "axes", "bars", this.LabelText, "markers", "legends"]}
-                colors={{"scheme": "nivo"}}
-                colorBy="index"
-                borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-                axisTop={null}
-                enableLabel={false}
-                axisBottom={{
-                    tickSize: 10,
-                    tickPadding: 5,
-                    tickRotation: 0,
-                    legend: 'MiB',
-                    legendPosition: 'middle',
-                    legendOffset: 70,
-                    format: value => Math.round((value/1024 + Number.EPSILON))
-                }}
-                labelSkipWidth={12}
-                labelSkipHeight={12}
-                labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-                animate={true}
-                motionStiffness={90}
-                motionDamping={15}
-                theme={theme}
-                tooltipFormat={value => value + ' KiB'}
-                />
-        </div>
+            <div className="wrap-chart">
+                <div style={this.getChartDimension()} className="bar-chart">
+                    <ResponsiveBar
+                        data={this.props.data}
+                        keys={["size"]}
+                        indexBy="repoName"
+                        margin={this.getChartMargin()}
+                        padding={0.1}
+                        layout="horizontal"
+                        layers={["grid", "axes", "bars", this.LabelText, "markers", "legends"]}
+                        colors={{"scheme": "nivo"}}
+                        colorBy="index"
+                        borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
+                        axisTop={null}
+                        enableLabel={false}
+                        axisLeft={{
+                            tickRotation: this.isOnSmallScreen() ? -60: 0,
+                        }}
+                        axisBottom={{
+                            tickSize: 10,
+                            tickPadding: 5,
+                            tickRotation: this.isOnSmallScreen() ? -50: 0,
+                            legend: 'MiB',
+                            legendPosition: 'middle',
+                            legendOffset: 70,
+                            format: value => Math.round((value/1024 + Number.EPSILON))
+                        }}
+                        labelSkipWidth={12}
+                        labelSkipHeight={12}
+                        labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
+                        animate={true}
+                        motionStiffness={90}
+                        motionDamping={15}
+                        theme={theme}
+                        tooltipFormat={value => value + ' KiB'}
+                        />
+                </div>
+             </div>
         )
     }
 }
