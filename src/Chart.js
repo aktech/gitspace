@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 
 // These two values must be close enough for the size label to be placed correctly
-const yAxisDiff = 64
+const defaultYAxisDiff = 64
 const barHeight = 70
 const smallScreenWidth = 600
 const tickFont = "PT Sans, serif"
@@ -59,6 +59,10 @@ class Chart extends Component {
         const dataToFill = this.props.data.slice(0, remainingSize)
         let lastBar = bars[0]
         let remainingElements = []
+
+        const yHeight = bars[0].height
+        const yAxisDiff = bars.length >= 2 ? bars[0].y - bars[1].y: defaultYAxisDiff
+
         dataToFill.reverse()
         dataToFill.forEach(element => {
             remainingElements.push({
@@ -73,7 +77,7 @@ class Chart extends Component {
                     x: 0,
                     y: lastBar.y + yAxisDiff,
                     width: 1,
-                    height: 58,
+                    height: yHeight,
                     color: "#e8c1a0"
                 }
             )
