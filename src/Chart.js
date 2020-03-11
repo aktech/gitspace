@@ -106,7 +106,7 @@ class Chart extends Component {
         const barsAppended = this.getAllBars(bars)
         let labels = barsAppended.map(({ key, x, y, width, height }, index) => {
             return (
-                <text textAnchor="middle" className="foobarclass" x={width+50} y={y + height/2.1} style={{
+                <text textAnchor="middle" x={width+50} y={y + height/2.1} style={{
                     "fontSize": "14px",
                     "fontFamily": "'Slabo 27px', serif"
                 }} key={index}>

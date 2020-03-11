@@ -22,13 +22,7 @@ class Form extends Component {
             unknownError: false,
             totalSize: 0
         }
-        this.responseData = []
-        this.fetchPage = 1
-        this.fetchMore = true
-        this.invalidUser = false
-        this.noRepos = false
-        this.unknownError = false
-        this.success = false
+        this.initPageState()
     }
 
     handleUsernameChange = (event) => {
@@ -74,11 +68,12 @@ class Form extends Component {
         await this.fetchRepos()
     }
 
-    resetPageState = () => {
+    initPageState = () => {
         this.responseData = []
         this.fetchPage = 1
         this.fetchMore = true
         this.invalidUser = false
+        this.noRepos = false
         this.unknownError = false
         this.success = false
     }
@@ -105,7 +100,7 @@ class Form extends Component {
                     noRepos: this.noRepos
                 })
             }
-            this.resetPageState()
+            this.initPageState()
             this.setState({ loading: false });
         })
 
@@ -118,7 +113,6 @@ class Form extends Component {
         this.responseData.forEach(element => {
             repos.push(element.name)
             totalSize += element.size
-            // let repoSize = element.size / 1024
             let repoSize = element.size
             chartData.push({
                 "repoName": element.name,
@@ -133,12 +127,12 @@ class Form extends Component {
         this.setState({
             chartData: chartData,
             repos: repos,
+            totalSize: Math.round((totalSize / (1024*1024) + Number.EPSILON) * 100) / 100,
             success: true,
             sizeMessage: true,
             invalidUser: false,
             unknownError: false,
-            noRepos: false,
-            totalSize: Math.round((totalSize / (1024*1024) + Number.EPSILON) * 100) / 100
+            noRepos: false
         })
     }
 
@@ -152,7 +146,6 @@ class Form extends Component {
             </form>
                 {this.state.loading?
                     <div className="spinner-border" role="status">
-                        <span className="sr-only">Loading...</span>
                     </div> : null
                 }
                 {this.state.invalidUser?
