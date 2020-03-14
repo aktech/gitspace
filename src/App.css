@@ -22,13 +22,6 @@
   transition: border-color .3s ease;
 }
 
-.wrap-chart {
-  overflow-x: scroll;
-  display: block;
-  /*position: relative;*/
-  white-space: nowrap;
-}
-
 .message {
   width: 50%;
   margin: auto;

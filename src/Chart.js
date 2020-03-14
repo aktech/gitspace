@@ -4,29 +4,9 @@ import { ResponsiveBar } from '@nivo/bar'
 // These two values must be close enough for the size label to be placed correctly
 const defaultYAxisDiff = 64
 const barHeight = 70
+const smallScreenBarHeight = 30
 const smallScreenWidth = 600
 const tickFont = "PT Sans, serif"
-
-const theme = {
-    axis: {
-        tickColor: "#eee",
-        ticks: {
-            text: {
-                fontSize: "1em",
-                fontFamily: tickFont,
-                fontWeight: "bold"
-            }
-        },
-        legend: {
-            text: {
-                fontSize: "1em",
-                fontFamily: tickFont,
-                fontWeight: "bold",
-                fill: '#165f77'
-            }
-        }
-    }
-};
 
 
 class Chart extends Component {
@@ -104,12 +84,13 @@ class Chart extends Component {
             return <g></g>
         }
         const barsAppended = this.getAllBars(bars)
+        const style = {
+            "fontSize": this.isOnSmallScreen() ? "0.5em" : "1em",
+            "fontFamily": "'Slabo 27px', serif"
+        }
         let labels = barsAppended.map(({ key, x, y, width, height }, index) => {
             return (
-                <text textAnchor="middle" x={width+50} y={y + height/2.1} style={{
-                    "fontSize": "14px",
-                    "fontFamily": "'Slabo 27px', serif"
-                }} key={index}>
+                <text textAnchor="middle" x={width+50} y={y + height/2.1} style={style} key={index}>
                     {this.formatSize(barsAppended[index].data.value)}
                 </text>
             )
@@ -128,52 +109,76 @@ class Chart extends Component {
     }
 
     getChartDimension = () => {
+        const actualBarHeight = this.isOnSmallScreen() ?  smallScreenBarHeight : barHeight
+        const minHeight = actualBarHeight * 10
+        const height = Math.max(minHeight, this.props.repos.length * actualBarHeight)
         return {
-            height: Math.max(700, this.props.repos.length * barHeight),
-            width: this.isOnSmallScreen() ? this.state.width + 200: this.state.width
+            height: height,
+            width: this.state.width
         }
     }
 
-    render() {
+    getTheme = () => {
+        const fontSize = this.isOnSmallScreen() ? "0.5em" : "1em"
+        return {
+            axis: {
+                tickColor: "#eee",
+                ticks: {
+                    text: {
+                        fontSize: fontSize,
+                        fontFamily: tickFont,
+                    }
+                },
+                legend: {
+                    text: {
+                        fontSize: fontSize,
+                        fontFamily: tickFont,
+                        fill: '#165f77'
+                    }
+                }
+            }
+        };
+    }
 
+    render() {
         return (
             <div className="wrap-chart">
-                <div style={this.getChartDimension()} className="bar-chart">
-                    <ResponsiveBar
-                        data={this.props.data}
-                        keys={["size"]}
-                        indexBy="repoName"
-                        margin={this.getChartMargin()}
-                        padding={0.1}
-                        layout="horizontal"
-                        layers={["grid", "axes", "bars", this.LabelText, "markers", "legends"]}
-                        colors={{"scheme": "nivo"}}
-                        colorBy="index"
-                        borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-                        axisTop={null}
-                        enableLabel={false}
-                        axisLeft={{
-                            tickRotation: this.isOnSmallScreen() ? -60: 0,
-                        }}
-                        axisBottom={{
-                            tickSize: 10,
-                            tickPadding: 5,
-                            tickRotation: this.isOnSmallScreen() ? -50: 0,
-                            legend: 'MiB',
-                            legendPosition: 'middle',
-                            legendOffset: 70,
-                            format: value => Math.round((value/1024 + Number.EPSILON))
-                        }}
-                        labelSkipWidth={12}
-                        labelSkipHeight={12}
-                        labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-                        animate={true}
-                        motionStiffness={90}
-                        motionDamping={15}
-                        theme={theme}
-                        tooltipFormat={value => value + ' KiB'}
+                    <div style={this.getChartDimension()} className="bar-chart">
+                        <ResponsiveBar
+                            data={this.props.data}
+                            keys={["size"]}
+                            indexBy="repoName"
+                            margin={this.getChartMargin()}
+                            padding={0.1}
+                            layout="horizontal"
+                            layers={["grid", "axes", "bars", this.LabelText, "markers", "legends"]}
+                            colors={{"scheme": "nivo"}}
+                            colorBy="index"
+                            borderColor={{from: 'color', modifiers: [['darker', 1.6]]}}
+                            axisTop={null}
+                            enableLabel={false}
+                            axisLeft={{
+                                tickRotation: this.isOnSmallScreen() ? -60 : 0,
+                            }}
+                            axisBottom={{
+                                tickSize: 10,
+                                tickPadding: 5,
+                                tickRotation: this.isOnSmallScreen() ? -50 : 0,
+                                legend: 'MiB',
+                                legendPosition: 'middle',
+                                legendOffset: 70,
+                                format: value => Math.round((value / 1024 + Number.EPSILON))
+                            }}
+                            labelSkipWidth={12}
+                            labelSkipHeight={12}
+                            labelTextColor={{from: 'color', modifiers: [['darker', 1.6]]}}
+                            animate={true}
+                            motionStiffness={90}
+                            motionDamping={15}
+                            theme={this.getTheme()}
+                            tooltipFormat={value => value + ' KiB'}
                         />
-                </div>
+                    </div>
              </div>
         )
     }
