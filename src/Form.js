@@ -106,7 +106,7 @@ class Form extends Component {
 
     }
 
-    formatResponseData = () => {
+    formatResponseData() {
         let chartData = [];
         let repos = []
         let totalSize = 0

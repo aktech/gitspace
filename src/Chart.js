@@ -34,7 +34,7 @@ class Chart extends Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    getAllBars = (bars) => {
+    getAllBars(bars) {
         const remainingSize = this.props.data.length - bars.length
         const dataToFill = this.props.data.slice(0, remainingSize)
         let lastBar = bars[0]
@@ -67,7 +67,7 @@ class Chart extends Component {
         return remainingElements.concat(bars)
     }
 
-    formatSize = (size) => {
+    formatSize(size) {
         let humanReadableSize
         if (size < 512) {
             humanReadableSize = `${size} KiB`
@@ -98,17 +98,17 @@ class Chart extends Component {
         return <g>{labels}</g>
     }
 
-    isOnSmallScreen = () => {
+    isOnSmallScreen() {
         return this.state.width < smallScreenWidth
     }
 
-    getChartMargin = () => {
+    getChartMargin() {
         const right = 120
         const left = this.isOnSmallScreen() ? 100 : 200
         return { top: 10, right: right, bottom: 200, left: left }
     }
 
-    getChartDimension = () => {
+    getChartDimension() {
         const actualBarHeight = this.isOnSmallScreen() ?  smallScreenBarHeight : barHeight
         const minHeight = actualBarHeight * 10
         const height = Math.max(minHeight, this.props.repos.length * actualBarHeight)
@@ -118,7 +118,7 @@ class Chart extends Component {
         }
     }
 
-    getTheme = () => {
+    getTheme() {
         const fontSize = this.isOnSmallScreen() ? "0.5em" : "1em"
         return {
             axis: {
