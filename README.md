@@ -1,5 +1,7 @@
 # Gitspace
 
+[![Build](https://github.com/aktech/gitspace/actions/workflows/test.yml/badge.svg)](https://github.com/aktech/gitspace/actions/workflows/test.yml)
+
 A simple app to know the space occupied by your public repositories: https://gitspace.io
 
 ![alt text](public/preview.png "Preview")
