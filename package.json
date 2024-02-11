@@ -4,21 +4,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@nivo/bar": "^0.61.1",
-    "@sentry/browser": "^5.14.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "acorn": "^7.1.1",
-    "bootstrap": "^4.4.1",
+    "@nivo/bar": "^0.84.0",
+    "@sentry/browser": "^7.100.1",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "acorn": "^8.11.3",
+    "bootstrap": "^5.3.2",
     "kind-of": "^6.0.3",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.8",
     "nivo": "^0.31.0",
-    "react": "^16.13.0",
-    "react-bootstrap": "^1.0.0-beta.17",
-    "react-dom": "^16.13.0",
-    "react-router": "^5.1.2",
-    "react-scripts": "3.4.0"
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.1",
+    "react-dom": "^18.2.0",
+    "react-router": "^6.22.0",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "predeploy": "npm run build && cp CNAME ./build",
@@ -44,6 +44,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^6.1.1"
   }
 }

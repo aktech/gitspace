@@ -12,13 +12,13 @@ A simple app to know the space occupied by your public repositories: https://git
 * Install dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 * Run  the app locally
 
 ```bash
-npm start
+yarn start
 ```
 
 Checkout: http://localhost:3000/
@@ -26,5 +26,5 @@ Checkout: http://localhost:3000/
 ## Deploy to github pages
 
 ```
-npm run deploy
+yarn run deploy
 ```
